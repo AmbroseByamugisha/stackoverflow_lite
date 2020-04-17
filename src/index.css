@@ -11,3 +11,54 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#question_title {
+  color: darkmagenta;
+  text-decoration: none;
+}
+
+#num_of_answers {
+  background-color: orangered;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+#post_answer_button {
+  margin-top: 5px;
+}
+
+#nav_brand{
+  text-decoration: none;
+  color: white;
+}
+
+#answer_title {
+  color: orangered;
+}
+
+#answer_username{
+  font-size: smaller;
+  background-color: aqua;
+  margin-left: 5px;
+}
+
+#post_qn_menu {
+  text-decoration: none;
+  color: black;
+}
+
+#post_answ_form {
+  display: grid; /*causes the form to shake while typing in the first qn */
+}
+
+#post_answ_button {
+  max-width: min-content;
+  cursor: pointer;
+  font-style: inherit;
+  margin-top: 5px;
+  max-height: min-content;
+}
+
+#home_icon {
+  color: white;
+}
