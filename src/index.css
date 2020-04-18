@@ -62,3 +62,9 @@ code {
 #home_icon {
   color: white;
 }
+
+#comment_span {
+  font-size: smaller;
+  color: crimson;
+  cursor: pointer;
+}

@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
+import NestedList from './NestedList';
+import AlignItemsList from './AlignItemsList';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,6 +27,7 @@ const AllQuestions = (props) =>{
         <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs>
+          <NestedList />
         </Grid>
         <Grid item xs={6}>
           <div className={classes.paper}>
@@ -51,6 +54,7 @@ const AllQuestions = (props) =>{
           </div>
         </Grid>
         <Grid item xs>
+          <AlignItemsList />      
         </Grid>
       </Grid>
     </div>

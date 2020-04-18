@@ -45,7 +45,8 @@ const AskQuestion = (props) =>{
       user_name: "Ambrose Byamugisha",
       answers: [],
       num_of_answers: 0,
-      num_of_interactions: 0
+      num_of_interactions: 0,
+      isEditing: false
   }
     function createQuestion(){
       dispatch(create_question(data))

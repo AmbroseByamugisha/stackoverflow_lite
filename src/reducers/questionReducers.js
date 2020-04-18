@@ -19,7 +19,8 @@ const initialState = [
                     comment_body: "Javascript is cool",
                     user_name: "Prince"
                 }
-            ]
+            ],
+            isCommenting: false
         },
         {
             answer_id: 2,
@@ -37,7 +38,8 @@ const initialState = [
                     comment_body: "Javascript is cool",
                     user_name: "John Lennon"
                 }
-            ]
+            ],
+            isCommenting: false
         }
     ],
         num_of_answers: 1,
@@ -64,10 +66,11 @@ const initialState = [
                                     "dont take it personal",
                     user_name: "Sadio Mane"
                 }
-            ]
+            ],
+            isCommenting: false
         }],
         num_of_answers: 1,
-        num_of_interactions: 2
+        num_of_interactions: 2,
     }
 ]
 
@@ -87,6 +90,22 @@ export default (state = initialState, action) => {
                         ...question,
                         answers: question.answers.concat([action.data])
                         }
+                    } else return question;
+                })
+        case 'TOGGLE_IS_COMMENTING':
+            return state.map((question) => {
+                if (question.question_id === action.qnId) {
+                    return {
+                        ...question,
+                        answers: question.answers.map(answer => {
+                            if(answer.answer_id === action.answId){
+                                return {
+                                    ...answer,
+                                    isCommenting: !answer.isCommenting
+                                }
+                            } else return answer
+                        })
+                    } 
                     } else return question;
                 })
         default:
