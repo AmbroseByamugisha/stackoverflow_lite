@@ -108,6 +108,23 @@ export default (state = initialState, action) => {
                     } 
                     } else return question;
                 })
+        case 'CREATE_COMMENT':
+            return state.map((question) => {
+                if (question.question_id === action.qnId) {
+                    return {
+                        ...question,
+                        answers: question.answers.map(answer => {
+                            if(answer.answer_id === action.answId){
+                                return {
+                                    ...answer,
+                                    comments: answer.comments.concat([action.data]),
+                                    isCommenting: !answer.isCommenting
+                                }
+                            } else return answer
+                        })
+                    } 
+                    } else return question;
+                })
         default:
             return state;
     }

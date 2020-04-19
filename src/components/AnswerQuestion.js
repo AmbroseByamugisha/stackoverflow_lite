@@ -15,6 +15,9 @@ function AnswerQuestion(props){
     const handleChange = (event) => {
         setValue(event.target.value);
     };
+    function resetAnswerInput() {
+        setValue('');
+    }
     const data = {
         answer_id: genId(),
         answer_body: inputAnswerVal,
@@ -23,8 +26,7 @@ function AnswerQuestion(props){
     }
     function showQuestion(){
         dispatch(create_answer(props.question[0].question_id, data))
-        // props.question[0].answers.push(data)
-        //console.log(props)
+        resetAnswerInput()
     }
     return (
         <div>

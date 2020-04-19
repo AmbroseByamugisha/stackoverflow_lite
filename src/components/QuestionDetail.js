@@ -83,9 +83,9 @@ function QuestionDetail(props){
                                    </span>
                                    {
                                    answer.isCommenting ?
-                                   <CommentAnswer 
-                                       question={question}
-                                       questions={questions}
+                                   <CommentAnswer
+                                    question={question}
+                                    answer={answer} 
                                    />: null      
                                       
                                     }

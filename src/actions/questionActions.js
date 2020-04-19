@@ -20,10 +20,11 @@ export const toggleIsCommenting = (question_id, answer_id) => {
         answId: answer_id
     }
 }
-export const create_comment = (question_id, data) => {
+export const create_comment = (question_id, answer_id, data) => {
     return {
         type: 'CREATE_COMMENT',
-        id: question_id,
+        qnId: question_id,
+        answId: answer_id,
         data
     }
 }
