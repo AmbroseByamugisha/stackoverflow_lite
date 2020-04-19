@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { log_out } from '../actions'
 import { NavLink } from 'react-router-dom';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -82,8 +84,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+function PrimarySearchAppBar(props) {
   const classes = useStyles();
+  const { loggedIn, dispatch } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -179,6 +182,9 @@ export default function PrimarySearchAppBar() {
     </Menu>
   );
 
+  function logOut(){
+    dispatch(log_out())
+  }
   return (
     <div className={classes.grow}>
       <AppBar position="static">
@@ -215,10 +221,24 @@ export default function PrimarySearchAppBar() {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" color="inherit">
+                {loggedIn ? 
+                  <div>
+                    <Typography 
+                      className={classes.title}
+                      onClick={logOut} 
+                      id="nav_brand">
+                      Logout
+                    </Typography>
+                  </div>: 
+                  <div>
+                    <NavLink to="/login" id="nav_brand">
+                    <Typography className={classes.title}>
+                      Login
+                    </Typography>
+                    </NavLink>
+                  </div>
+                }
                 
-                <NavLink to="/login" id="nav_brand">
-                <Typography className={classes.title}>Login</Typography>
-                </NavLink>
 
             </IconButton>  
             <IconButton aria-label="show 4 new mails" color="inherit">
@@ -267,3 +287,11 @@ export default function PrimarySearchAppBar() {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    loggedIn: state.userReducers.loggedIn
+  }
+}
+
+export default connect(mapStateToProps)(PrimarySearchAppBar)
