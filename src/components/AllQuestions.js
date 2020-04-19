@@ -37,6 +37,7 @@ const AllQuestions = (props) =>{
                 <div key={question.question_id}>
                   <Link to={'/question_detail/' + question.question_id}
                      id="question_title">
+                     {/* THE LINK EXTENDS BEYOND THE TITLE ITSELF, WHY? */}
                     <h2 id="question_title">{question.question_title}</h2>
                   </Link>
                     <Chip label={"Answers " + question.num_of_answers}

@@ -4,6 +4,7 @@ import PrimarySearchAppBar from './components/AppBar1';
 import AllQuestions from './components/AllQuestions';
 import AskQuestion from './components/AskQuestion';
 import QuestionDetail from './components/QuestionDetail';
+import Login from './components/Login';
 
 function App(){
   return(
@@ -12,7 +13,8 @@ function App(){
       <Switch>
         <Route exact path="/" component={AllQuestions} /> 
         <Route path="/ask_question" component={AskQuestion} />
-        <Route path="/question_detail/:id" component={QuestionDetail} /> 
+        <Route path="/question_detail/:id" component={QuestionDetail} />
+        <Route path="/login" component={Login} /> 
       </Switch>
     </div>
   )

@@ -215,6 +215,13 @@ export default function PrimarySearchAppBar() {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" color="inherit">
+                
+                <NavLink to="/login" id="nav_brand">
+                <Typography className={classes.title}>Login</Typography>
+                </NavLink>
+
+            </IconButton>  
+            <IconButton aria-label="show 4 new mails" color="inherit">
               
                 <NavLink to="/ask_question" id="nav_brand">
                 <Typography className={classes.title}>Post Question</Typography>
