@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import Button from '@material-ui/core/Button';
-import { create_answer } from '../actions';
+import { create_answer } from '../../actions';
 
 function AnswerQuestion(props){
     const { dispatch } = props

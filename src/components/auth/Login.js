@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { login_user } from '../actions';
-import '../index.css'
+import { login_user } from '../../actions';
+import '../../index.css'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -25,11 +25,11 @@ const useStyles = makeStyles((theme) => ({
       },
   }));
 
-const AskQuestion = (props) => {
+const Login = (props) => {
     const classes = useStyles();
     const [inputUsernameVal, setValue] = useState('');
     const [inputPasswordVal, setPasswordValue] = useState('');
-    const { loggedIn, dispatch } = props;
+    const { loggedIn, dispatch} = props;
     const { handleSubmit } = useForm();
     
     const handleUsernameChange = (event) => {
@@ -39,13 +39,23 @@ const AskQuestion = (props) => {
         setPasswordValue(event.target.value);
       };
     // const onSubmit = data => console.log(inputTitleVal);
-//     const data = {
-//       user_name: inputUsernameVal,
-//       password: inputPasswordVal 
-//   }
+    const errorText = "Username is required";
+    const data = {
+      user_name: inputUsernameVal,
+      password: inputPasswordVal 
+    }
+    /*
+      APPLY VALIDATION FROM HERE
+      TO OTHER FORMS
+      ALSO IMPROVE THIS ONE
+      THE USERNAME_INPUT SHOULD NOT START OFF ERRED
+      UNTIL TOUCHED.
+    */
     function loginUser(){
+      if(inputUsernameVal.length !== 0){ 
       dispatch(login_user(inputUsernameVal, inputPasswordVal))
-      console.log(loggedIn) 
+      console.log(data)
+      } else { alert(errorText)}
     }
    
     if(!loggedIn){
@@ -58,14 +68,23 @@ const AskQuestion = (props) => {
                 <div className={classes.paper}>
                 <h1>Login</h1>
                 
-                <form className={classes.root} 
+                <form
+                  onSubmit={handleSubmit(loginUser)} 
+                  className={classes.root} 
                   noValidate autoComplete="off">
                     <TextField
-                    required
+                    error = {
+                              inputUsernameVal.length === 0 ? 
+                              true: 
+                              false
+                              }
                     id="standard-basic"
                     label="Username"
                     style={{ margin: 8 }}
-                    helperText="Username should be precise"
+                    helperText={
+                      inputUsernameVal.length === 0 ? 
+                      errorText: null
+                      }
                     fullWidth
                     margin="normal"
                     InputLabelProps={{
@@ -75,6 +94,8 @@ const AskQuestion = (props) => {
                     value= {inputUsernameVal}
                     onChange={handleUsernameChange}
                     />
+                    
+                     
                     <TextField
                     required
                     id="standard-basic-1"
@@ -91,8 +112,7 @@ const AskQuestion = (props) => {
                     value= {inputPasswordVal}
                     onChange={handlePasswordChange}
                     />
-                    <Button variant="outlined" type="submit" 
-                      onClick={handleSubmit(loginUser)}>
+                    <Button variant="outlined" type="submit">
                       Login
                     </Button>
                 </form>
@@ -118,4 +138,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(AskQuestion)  
+export default connect(mapStateToProps)(Login)  

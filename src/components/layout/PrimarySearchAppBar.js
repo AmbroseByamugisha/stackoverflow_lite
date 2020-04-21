@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { log_out } from '../actions'
+import { log_out } from '../../actions'
 import { NavLink } from 'react-router-dom';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -18,7 +18,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import '../index.css';
+import '../../index.css';
 
 const useStyles = makeStyles((theme) => ({
   grow: {

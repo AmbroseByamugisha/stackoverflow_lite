@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { create_comment } from '../actions'
+import { create_comment } from '../../actions'
 import { useForm } from 'react-hook-form';
 import Button from '@material-ui/core/Button';
-import '../index.css';
+import '../../index.css';
 
 function CommentAnswer(props){
     const { handleSubmit } = useForm();
