@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { log_out } from '../../actions'
+import { logoutUser } from '../../actions'
 import { NavLink } from 'react-router-dom';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
 
 function PrimarySearchAppBar(props) {
   const classes = useStyles();
-  const { loggedIn, dispatch } = props;
+  const { isAuthenticated, dispatch } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -183,7 +183,7 @@ function PrimarySearchAppBar(props) {
   );
 
   function logOut(){
-    dispatch(log_out())
+    dispatch(logoutUser())
   }
   return (
     <div className={classes.grow}>
@@ -221,7 +221,7 @@ function PrimarySearchAppBar(props) {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" color="inherit">
-                {loggedIn ? 
+                {isAuthenticated ? 
                   <div>
                     <Typography 
                       className={classes.title}
@@ -290,7 +290,7 @@ function PrimarySearchAppBar(props) {
 
 const mapStateToProps = (state) => {
   return {
-    loggedIn: state.userReducers.loggedIn
+    isAuthenticated: state.userReducers.isAuthenticated
   }
 }
 

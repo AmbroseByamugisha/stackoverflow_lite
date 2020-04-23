@@ -1,29 +1,34 @@
 const initialState = {
-    user_id: 1,
-    user_name: "ambrose",
-    password: "qwerty",
-    imageUrl: "",
-    loggedIn: false,
-    authStatusMsg: ""
+    currentUser: {},
+    isAuthenticated: false
 }
 // ADD IMAGES TO THE USER
 // USING IMAGE URL
 
-export default(state=initialState, action) => {
-    switch(action.type){
-        case 'LOGIN':
+export default (state = initialState, action) => {
+    switch (action.type) {
+        case 'LOGIN_USER':
+            return {
+                    ...state, 
+                    currentUser: action.payload,
+                    isAuthenticated: true
+                }
+        case 'LOGIN_ERROR':
             return {
                 ...state,
-                loggedIn: state.user_name === action.usrName &&
-                    state.password === action.passWrd ? 
-                    !state.loggedIn: state.loggedIn,
-                authStatusMsg: state.user_name + " is logged In"
+                authMsg: "Failed to login"
             }
-        case 'LOG_OUT':
+        case 'SIGNUP_ERROR':
             return {
                 ...state,
-                loggedIn: !state.loggedIn
+                authMsg: "Failed to create account"
             }
+        case 'LOGOUT_USER':
+            return {
+                    ...state, 
+                    currentUser: {},
+                    isAuthenticated: false 
+                }
         default:
             return state;
     }

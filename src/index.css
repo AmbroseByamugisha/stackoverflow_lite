@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color:whitesmoke;
 }
 
 code {
@@ -67,4 +68,7 @@ code {
   font-size: smaller;
   color: crimson;
   cursor: pointer;
+}
+#signup_link {
+  margin-left: 5px;
 }

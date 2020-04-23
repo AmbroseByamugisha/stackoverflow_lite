@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { userLoginFetch } from '../../actions';
+import { userPostFetch } from '../../actions';
 import '../../index.css'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -26,24 +25,34 @@ const useStyles = makeStyles((theme) => ({
       },
   }));
 
-const Login = (props) => {
+const SignUp = (props) => {
     const classes = useStyles();
-    const [inputEmailVal, setValue] = useState('');
+    const [inputEmailVal, setEmailValue] = useState('');
+    const [inputFirstnameVal, setFirstnameValue] = useState('');
+    const [inputLastnameVal, setLastnameValue] = useState('');
     const [inputPasswordVal, setPasswordValue] = useState('');
-    const { isAuthenticated, userLoginFetch} = props;
+    const { isAuthenticated, userPostFetch} = props;
     const { handleSubmit } = useForm();
-  
+    
     const handleEmailChange = (event) => {
-      setValue(event.target.value);
+      setEmailValue(event.target.value);
     };
+    const handleFirstnameChange = (event) => {
+        setFirstnameValue(event.target.value);
+      };
+    const handleLastnameChange = (event) => {
+        setLastnameValue(event.target.value);
+    };  
     const handlePasswordChange = (event) => {
         setPasswordValue(event.target.value);
       };
-   
+    // const onSubmit = data => console.log(inputTitleVal);
     const errorText = "Email is required";
     const data = {
-      email: inputEmailVal,
-      password: inputPasswordVal 
+        email: inputEmailVal,
+        first_name: inputFirstnameVal,
+        last_name: inputLastnameVal,
+        password: inputPasswordVal 
     }
     /*
       APPLY VALIDATION FROM HERE
@@ -52,9 +61,10 @@ const Login = (props) => {
       THE USERNAME_INPUT SHOULD NOT START OFF ERRED
       UNTIL TOUCHED.
     */
-    function login_User(){
+    function loginUser(){
       if(inputEmailVal.length !== 0){ 
-      userLoginFetch(data)
+      userPostFetch(data)
+      console.log(data)
       } else { alert(errorText)}
     }
    
@@ -66,10 +76,10 @@ const Login = (props) => {
             </Grid>
             <Grid item xs={6}>
                 <div className={classes.paper}>
-                <h1>Login</h1>
+                <h1>Register</h1>
                 
                 <form
-                  onSubmit={handleSubmit(login_User)} 
+                  onSubmit={handleSubmit(loginUser)} 
                   className={classes.root} 
                   noValidate autoComplete="off">
                     <TextField
@@ -93,12 +103,42 @@ const Login = (props) => {
                     name="email"
                     value= {inputEmailVal}
                     onChange={handleEmailChange}
-                    />
-                    
-                     
+                    /> 
                     <TextField
                     required
                     id="standard-basic-1"
+                    label="First Name"
+                    type="text"
+                    style={{ margin: 8 }}
+                    helperText="first name should be precise"
+                    fullWidth
+                    margin="normal"
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    name="first_name"
+                    value= {inputFirstnameVal}
+                    onChange={handleFirstnameChange}
+                    />
+                    <TextField
+                    required
+                    id="standard-basic-2"
+                    label="Last Name"
+                    type="text"
+                    style={{ margin: 8 }}
+                    helperText="last name should be precise"
+                    fullWidth
+                    margin="normal"
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    name="last_name"
+                    value= {inputLastnameVal}
+                    onChange={handleLastnameChange}
+                    />
+                    <TextField
+                    required
+                    id="standard-basic-3"
                     label="Password"
                     type="password"
                     style={{ margin: 8 }}
@@ -113,15 +153,9 @@ const Login = (props) => {
                     onChange={handlePasswordChange}
                     />
                     <Button variant="outlined" type="submit">
-                      Login
+                      Signup
                     </Button>
                 </form>
-              </div>
-              <div>
-              Don't Have an Accout Yet? 
-              <NavLink to="/signup" id="signup_link">
-                Signup
-              </NavLink>
               </div>
             </Grid>
             <Grid item xs>
@@ -138,13 +172,12 @@ const Login = (props) => {
     login error...
     username and password invalid
 */
-
 const mapStateToProps = state => ({
   isAuthenticated: state.userReducers.isAuthenticated
 })
 
 const mapDispatchToProps = dispatch => ({
-  userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login)  
+    userPostFetch: userInfo => dispatch(userPostFetch(userInfo))
+  })
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
