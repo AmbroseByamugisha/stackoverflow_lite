@@ -220,34 +220,48 @@ function PrimarySearchAppBar(props) {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+          {
+            isAuthenticated ?
+            <IconButton aria-label="show 4 new mails" color="inherit">    
+              <Typography 
+                onClick={logOut} 
+                id="nav_brand">
+                Logout
+              </Typography>
+            </IconButton>:
             <IconButton aria-label="show 4 new mails" color="inherit">
-                {isAuthenticated ? 
-                  <div>
-                    <Typography 
-                      className={classes.title}
-                      onClick={logOut} 
-                      id="nav_brand">
-                      Logout
-                    </Typography>
-                  </div>: 
-                  <div>
-                    <NavLink to="/login" id="nav_brand">
-                    <Typography className={classes.title}>
-                      Login
-                    </Typography>
-                    </NavLink>
-                  </div>
-                }
-                
-
-            </IconButton>  
+            <NavLink to="/login" id="nav_brand">    
+              <Typography>
+                Login
+              </Typography>
+            </NavLink>
+            </IconButton>
+          }
+          {
+            isAuthenticated ?
+            null:
             <IconButton aria-label="show 4 new mails" color="inherit">
+            <NavLink to="/signup" id="nav_brand">    
+              <Typography>
+                Signup
+              </Typography>
+            </NavLink>
+            </IconButton>
+          }
+            
+            {
+              isAuthenticated ?
+              <div>
+              <IconButton aria-label="show 4 new mails" color="inherit">
               
                 <NavLink to="/ask_question" id="nav_brand">
                 <Typography className={classes.title}>Post Question</Typography>
                 </NavLink>
   
-            </IconButton>
+              </IconButton>
+            </div> : null 
+            }  
+            
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <MailIcon />

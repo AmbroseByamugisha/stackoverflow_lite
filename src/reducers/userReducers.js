@@ -1,6 +1,6 @@
 const initialState = {
     currentUser: {},
-    isAuthenticated: false
+    isAuthenticated: false,
 }
 // ADD IMAGES TO THE USER
 // USING IMAGE URL
@@ -16,12 +16,12 @@ export default (state = initialState, action) => {
         case 'LOGIN_ERROR':
             return {
                 ...state,
-                authMsg: "Failed to login"
+                authMsg: action.payload
             }
         case 'SIGNUP_ERROR':
             return {
                 ...state,
-                authMsg: "Failed to create account"
+                authMsg: action.payload
             }
         case 'LOGOUT_USER':
             return {

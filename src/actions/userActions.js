@@ -1,12 +1,14 @@
-const login_error = () => {
+const login_error = (errorMsg) => {
   return {
-    type: "LOGIN_ERROR"
+    type: "LOGIN_ERROR",
+    payload: errorMsg
   }
 }
 
-const signup_error = () => {
+const signup_error = (errorMsg) => {
   return {
-    type: "SIGNUP_ERROR"
+    type: "SIGNUP_ERROR",
+    payload: errorMsg
   }
 }
 
@@ -32,7 +34,7 @@ export const userPostFetch = user => {
             // Here you should have logic to handle invalid creation of a user.
             // This assumes your Rails API will return a JSON object with a key of
             // 'message' if there is an error with creating the user, i.e. invalid username
-            dispatch(signup_error())
+            dispatch(signup_error(data.error))
           } else {
             localStorage.setItem("token", data.data.token)
             dispatch(loginUser(data.data))
@@ -57,7 +59,7 @@ export const userLoginFetch = user => {
             // Here you should have logic to handle invalid login credentials.
             // This assumes your Rails API will return a JSON object with a key of
             // 'message' if there is an error
-            dispatch(login_error())
+            dispatch(login_error(data.error))
           } else {
             localStorage.setItem("token", data.data.token)
             dispatch(loginUser(data.data))
