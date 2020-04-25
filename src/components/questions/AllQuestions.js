@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 const AllQuestions = (props) =>{
-    const { questions } = props
+    const { questions, currentUser } = props
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -31,6 +31,11 @@ const AllQuestions = (props) =>{
         </Grid>
         <Grid item xs={6}>
           <div className={classes.paper}>
+          {
+            currentUser.is_admin ?
+            <p>Admin Dashboard</p>:
+            null
+          }
           <h1>Popular Questions</h1>
             {console.log(questions)}
             {questions && questions.map(question => (
@@ -40,7 +45,7 @@ const AllQuestions = (props) =>{
                      {/* THE LINK EXTENDS BEYOND THE TITLE ITSELF, WHY? */}
                     <h2 id="question_title">{question.question_title}</h2>
                   </Link>
-                    <Chip label={"Answers " + question.num_of_answers}
+                    <Chip label={"Answers " + question.answers.length}
                         size="small" 
                         id="num_of_answers"/>
                     <Chip
@@ -64,7 +69,9 @@ const AllQuestions = (props) =>{
 
 const mapStateToProps = (state) => {
     return {
-        questions: state.questionReducers
+        questions: state.questionReducers,
+        // num_of_answers: state.questionReducers.answers.length,
+        currentUser: state.userReducers.currentUser
     }
 }
 

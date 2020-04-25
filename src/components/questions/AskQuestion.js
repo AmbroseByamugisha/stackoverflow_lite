@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 const AskQuestion = (props) =>{
     const classes = useStyles();
     const [inputTitleVal, setValue] = useState('');
-    const { questions, myqns, dispatch } = props;
+    const { questions, myqns, dispatch, currentUser } = props;
     const { handleSubmit } = useForm();
     
     function genId(){
@@ -41,8 +41,8 @@ const AskQuestion = (props) =>{
     const data = {
       question_id: genId(),
       question_title: inputTitleVal,
-      user_id: 1,
-      user_name: "Ambrose Byamugisha",
+      user_id: currentUser.user_id,
+      user_name: currentUser.first_name,
       answers: [],
       num_of_answers: 0,
       num_of_interactions: 0,
@@ -62,7 +62,6 @@ const AskQuestion = (props) =>{
             <Grid item xs={6}>
                 <div className={classes.paper}>
                 <h1>Ask Question</h1>
-                
                 <form className={classes.root} 
                   noValidate autoComplete="off">
                     <TextField
@@ -105,12 +104,14 @@ const AskQuestion = (props) =>{
 
 const mapStateToProps = (state) => {
   const questions = state.questionReducers;
+  const currentUserId = state.userReducers.currentUser.user_id 
   const my_questions = questions.filter(my_question =>(
-    my_question.user_id === 1 ? my_question: null
+    my_question.user_id === currentUserId ? my_question: null
   ))
   return {
     questions: state.questionReducers,
-    myqns: my_questions
+    myqns: my_questions,
+    currentUser: state.userReducers.currentUser
   }
 }
 
