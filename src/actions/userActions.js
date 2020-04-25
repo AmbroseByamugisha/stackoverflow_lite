@@ -20,7 +20,7 @@ const loginUser = userObj => ({
 
 export const userPostFetch = user => {
     return dispatch => {
-      return fetch("http://localhost:5000/api/v1/auth/signup", {
+      return fetch("https://vast-ridge-34508.herokuapp.com/api/v1/auth/signup", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ export const userPostFetch = user => {
   
 export const userLoginFetch = user => {
     return dispatch => {
-      return fetch("http://localhost:5000/api/v1/auth/signin", {
+      return fetch("https://vast-ridge-34508.herokuapp.com/api/v1/auth/signin", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ export const getProfileFetch = () => {
     return dispatch => {
       const token = localStorage.token;
       if (token) {
-        return fetch("http://localhost:5000/api/v1/auth/profile", {
+        return fetch("https://vast-ridge-34508.herokuapp.com/api/v1/auth/profile", {
           method: "GET",
           headers: {
             'Content-Type': 'application/json',

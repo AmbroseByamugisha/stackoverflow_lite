@@ -76,7 +76,6 @@ const SignUp = (props) => {
     function loginUser(){
       if(inputEmailVal.length !== 0){ 
       userPostFetch(data)
-      console.log(data)
       } else { alert(errorText)}
     }
    

@@ -222,44 +222,37 @@ function PrimarySearchAppBar(props) {
           <div className={classes.sectionDesktop}>
           {
             isAuthenticated ?
-            <IconButton aria-label="show 4 new mails" color="inherit">    
-              <Typography 
-                onClick={logOut} 
+            <IconButton aria-label="show 4 new mails" 
+              color="inherit"
+              onClick={logOut}>    
+              <Typography  
                 id="nav_brand">
                 Logout
               </Typography>
             </IconButton>:
-            <IconButton aria-label="show 4 new mails" color="inherit">
-            <NavLink to="/login" id="nav_brand">    
-              <Typography>
+            <NavLink to="/login" 
+              id="nav_brand">
+              <Typography>    
                 Login
               </Typography>
             </NavLink>
-            </IconButton>
           }
           {
             isAuthenticated ?
             null:
-            <IconButton aria-label="show 4 new mails" color="inherit">
             <NavLink to="/signup" id="nav_brand">    
               <Typography>
                 Signup
               </Typography>
             </NavLink>
-            </IconButton>
           }
             
             {
               isAuthenticated ?
-              <div>
-              <IconButton aria-label="show 4 new mails" color="inherit">
-              
-                <NavLink to="/ask_question" id="nav_brand">
-                <Typography className={classes.title}>Post Question</Typography>
-                </NavLink>
-  
-              </IconButton>
-            </div> : null 
+                <NavLink to="/ask_question" id="nav_post_qn">
+                <Typography>Post Question</Typography>
+                </NavLink>: 
+                  null 
             }  
             
             <IconButton aria-label="show 4 new mails" color="inherit">

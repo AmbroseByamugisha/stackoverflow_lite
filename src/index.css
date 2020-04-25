@@ -31,6 +31,8 @@ code {
 #nav_brand{
   text-decoration: none;
   color: white;
+  margin-top: 10px;
+  margin-right: 10px;
 }
 
 #answer_title {
@@ -71,4 +73,11 @@ code {
 }
 #signup_link {
   margin-left: 5px;
+}
+
+#nav_post_qn {
+  text-decoration: none;
+  color: white;
+  margin-top: 22px;
+  margin-right: 5px; 
 }
