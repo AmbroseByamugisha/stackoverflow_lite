@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { create_question } from '../../actions';
 import '../../index.css'
@@ -49,11 +50,22 @@ const AskQuestion = (props) =>{
       isEditing: false
   }
     function createQuestion(){
-      dispatch(create_question(data))
-      console.log(questions) 
+      if(currentUser.first_name){
+        dispatch(create_question(data))
+      }
+      else {
+        alert('You are not authorized to ask question')
+      }
     }
-   
-    
+   /*
+      THE IF-ELSE CLAUSE BELOW
+      PROTECTS THIS ROUTE
+      CAN BE BETTER
+      BUILD ONE PROTECTED-ROUTE
+      COMPONENT THAT RENDERS ALL
+      PROTECTED ROUTES
+   */
+    if(currentUser.first_name){
     return (
         <div className={classes.root}>
           <Grid container spacing={3}>
@@ -99,7 +111,7 @@ const AskQuestion = (props) =>{
             </Grid>
           </Grid>
     </div>
-    )
+    )} else {return (<Redirect to="/" />)}
 }
 
 const mapStateToProps = (state) => {

@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import { create_answer } from '../../actions';
 
 function AnswerQuestion(props){
-    const { dispatch } = props
+    const { dispatch, currentUser } = props
     const { handleSubmit } = useForm();
     const [inputAnswerVal, setValue] = useState('');
     function genId(){
@@ -21,12 +21,18 @@ function AnswerQuestion(props){
     const data = {
         answer_id: genId(),
         answer_body: inputAnswerVal,
-        user_name: "Ambrose Byamugisha",
+        user_name: currentUser.first_name,
         comments: []
     }
     function showQuestion(){
+        if(currentUser.first_name){
         dispatch(create_answer(props.question[0].question_id, data))
         resetAnswerInput()
+        }
+        else {
+            resetAnswerInput()
+            alert("You are not authorized to answer")
+        }
     }
     return (
         <div>
@@ -50,4 +56,10 @@ function AnswerQuestion(props){
 
 }
 
-export default connect()(AnswerQuestion)
+const mapStateToProps = (state) => {
+    return {
+        currentUser: state.userReducers.currentUser
+    }
+}
+
+export default connect(mapStateToProps)(AnswerQuestion)

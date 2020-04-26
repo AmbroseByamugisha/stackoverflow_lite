@@ -1,3 +1,8 @@
+const login_request = () => {
+  return {
+    type: 'LOGIN_REQUEST'
+  }
+}
 const login_error = (errorMsg) => {
   return {
     type: "LOGIN_ERROR",
@@ -20,6 +25,7 @@ const loginUser = userObj => ({
 
 export const userPostFetch = user => {
     return dispatch => {
+      dispatch(login_request());
       return fetch("https://vast-ridge-34508.herokuapp.com/api/v1/auth/signup", {
         method: "POST",
         headers: {
@@ -45,6 +51,7 @@ export const userPostFetch = user => {
   
 export const userLoginFetch = user => {
     return dispatch => {
+      dispatch(login_request());
       return fetch("https://vast-ridge-34508.herokuapp.com/api/v1/auth/signin", {
         method: "POST",
         headers: {
@@ -69,6 +76,7 @@ export const userLoginFetch = user => {
   }
 export const getProfileFetch = () => {
     return dispatch => {
+      // dispatch(login_request());
       const token = localStorage.token;
       if (token) {
         return fetch("https://vast-ridge-34508.herokuapp.com/api/v1/auth/profile", {
@@ -111,3 +119,4 @@ export const logoutUser = () => {
     dispatch(log_out())
   }
 }
+

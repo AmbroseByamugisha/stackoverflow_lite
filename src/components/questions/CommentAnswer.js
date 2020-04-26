@@ -7,7 +7,7 @@ import '../../index.css';
 
 function CommentAnswer(props){
     const { handleSubmit } = useForm();
-    const { dispatch } = props
+    const { dispatch, currentUser } = props
     const [inputCommentVal, setValue] = useState('');
     function genId(){
         const comm_id = props.answer.comments.length + 1
@@ -19,12 +19,15 @@ function CommentAnswer(props){
     const data = {
         comment_id: genId(),
         comment_body: inputCommentVal,
-        user_name: "Ambrose Byamugisha"
+        user_name: currentUser.first_name
     }
     function postComment(){
-        dispatch(create_comment(props.question.question_id,
-            props.answer.answer_id, data ))
-        console.log(props)
+        if(currentUser.first_name){
+            dispatch(create_comment(props.question.question_id,
+                props.answer.answer_id, data ))
+        } else {
+            alert('You are not authorized to comment')
+        }
     }
     return (
         <div>
@@ -47,4 +50,10 @@ function CommentAnswer(props){
 
 }
 
-export default connect()(CommentAnswer)
+const mapStateToProps = (state) =>{
+    return {
+        currentUser: state.userReducers.currentUser
+    }
+}
+
+export default connect(mapStateToProps)(CommentAnswer)

@@ -6,8 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
-import NestedList from '../layout/NestedList';
 import AlignItemsList from '../layout/AlignItemsList';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,21 +23,29 @@ const useStyles = makeStyles((theme) => ({
 const AllQuestions = (props) =>{
     const { questions, currentUser } = props
     const classes = useStyles();
+
+    function ask_question_btn(){
+        props.history.push('/ask_question')
+    }
     return (
         <div className={classes.root}>
       <Grid container spacing={3}>
-        <Grid item xs>
-          <NestedList />
-        </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={8}>
           <div className={classes.paper}>
           {
             currentUser.is_admin ?
             <p>Admin Dashboard</p>:
             null
           }
+           
+            <Button
+              onClick={ask_question_btn} 
+              variant="outlined">
+              Ask Question
+            </Button> 
+          
           <h1>Popular Questions</h1>
-            {console.log(questions)}
+            
             {questions && questions.map(question => (
                 <div key={question.question_id}>
                   <Link to={'/question_detail/' + question.question_id}
@@ -49,7 +57,7 @@ const AllQuestions = (props) =>{
                         size="small" 
                         id="num_of_answers"/>
                     <Chip
-                        avatar={<Avatar alt="Natacha" 
+                        avatar={<Avatar alt={question.user_name} 
                         src="/static/images/avatar/1.jpg" />}
                         label={question.user_name}
                         size="small"
@@ -59,7 +67,10 @@ const AllQuestions = (props) =>{
             )}
           </div>
         </Grid>
-        <Grid item xs>
+        <Grid item xs={12} sm={1}>
+               
+        </Grid>
+        <Grid item xs={12} sm={3}>
           <AlignItemsList />      
         </Grid>
       </Grid>
@@ -70,7 +81,7 @@ const AllQuestions = (props) =>{
 const mapStateToProps = (state) => {
     return {
         questions: state.questionReducers,
-        // num_of_answers: state.questionReducers.answers.length,
+        isAuthenticated: state.questionReducers.isAuthenticated,
         currentUser: state.userReducers.currentUser
     }
 }

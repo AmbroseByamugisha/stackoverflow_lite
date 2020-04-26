@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MuiAlert from '@material-ui/lab/Alert';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -35,14 +36,20 @@ const useStyles = makeStyles((theme) => ({
       '& > * + *': {
         marginTop: theme.spacing(2),
       },
-    }
+    },
+    circular: {
+      display: 'flex',
+      '& > * + *': {
+        marginLeft: theme.spacing(2),
+      },
+    },
   }));
 
 const Login = (props) => {
     const classes = useStyles();
     const [inputEmailVal, setValue] = useState('');
     const [inputPasswordVal, setPasswordValue] = useState('');
-    const { isAuthenticated, userLoginFetch, authMsg} = props;
+    const { isAuthenticated, userLoginFetch, authMsg, isLoggingIn} = props;
     const { handleSubmit } = useForm();
   
     const handleEmailChange = (event) => {
@@ -131,10 +138,18 @@ const Login = (props) => {
                     value= {inputPasswordVal}
                     onChange={handlePasswordChange}
                     />
-                    <Button variant="outlined" type="submit">
-                      Login
-                    </Button>
+                    <div className={classes.circular}>
+                      <Button variant="outlined" type="submit">
+                        Login
+                      </Button>
+                      {
+                        isLoggingIn ?
+                        <CircularProgress />:
+                        null
+                      } 
+                    </div>
                 </form>
+
               </div>
               <div>
               Don't Have an Accout Yet? 
@@ -160,7 +175,8 @@ const Login = (props) => {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.userReducers.isAuthenticated,
-  authMsg: state.userReducers.authMsg
+  authMsg: state.userReducers.authMsg,
+  isLoggingIn: state.userReducers.isLoggingIn
 })
 
 const mapDispatchToProps = dispatch => ({
